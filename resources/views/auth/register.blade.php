@@ -16,7 +16,7 @@
                             <label for="name" class="col-md-4 control-label">الاسم الأول</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
+                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
 
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
@@ -29,7 +29,7 @@
                             <label for="name" class="col-md-4 control-label">الاسم الثانى</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
 
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
@@ -74,10 +74,19 @@
                             </div>
                         </div>
                         
-                        <div class="form-group">
-                            
+                        <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                            <div class="col-md-8 col-md-offset-4">      
+                                <!--<div class="g-recaptcha" data-sitekey="{{env('NOCAPTCHA_SITEKEY')}}"></div>-->
+                                <!--<div class="g-recaptcha" data-sitekey="6LdQt3UUAAAAABkYkXn2PS1KmAdYTgK3l5AhvQEM"></div>-->                                                                 
+                                    {!! app('captcha')->display() !!}
+                                    @if ($errors->has('g-recaptcha-response'))
+                                    <span class="help-block"><strong> {{ $errors->first('g-recaptcha-response') }}</strong></span>                                        
+                                    @endif                                                                    
+                            </div>
+                        </div>
+                        <div class="form-group">                            
                             <div class="col-md-8 col-md-offset-4">
-                                <input id="agreements" type="checkbox"  name="agreements" required>
+                                <input id="agreements" type="checkbox"  name="agreements" value="1" required>
                                 <a href="">موافق على شروط استخدام انجزلى</a>
                             </div>
                         </div>
@@ -95,4 +104,6 @@
         </div>
     </div>
 </div>
+
+
 @endsection
