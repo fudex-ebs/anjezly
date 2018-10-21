@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->integer('mobile')->nullable();
             $table->text('bio')->nullable();
-            $table->enum('reg_via',array('site','facebook','google'))->default('site');
+//            $table->enum('reg_via',array('site','facebook','google'))->default('site');
             $table->boolean('active')->default(1);
             $table->integer('user_role')->default(4);
             $table->dateTime('last_login')->nullable();            

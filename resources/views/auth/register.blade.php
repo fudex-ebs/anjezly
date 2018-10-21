@@ -7,7 +7,12 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">حساب جديد</div>
-
+                <h3 class="text-center">باستخدام احدى مواقع التواصل الاجتماعى</h3>
+                <ul>
+                    <li> <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a></li>
+                    <li> <a href="{{ url('/auth/google') }}" class="btn btn-google"><i class="fa fa-facebook"></i> Google</a></li>
+                </ul>
+                <hr/> <h3>أو بالتسجيل عبر موقعنا </h3>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
