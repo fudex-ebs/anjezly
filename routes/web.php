@@ -18,7 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/personal_info','ClientController@personal_info');
+Route::post('/personal_info/update','ClientController@personal_info_update');
 
 // OAuth Routes
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
