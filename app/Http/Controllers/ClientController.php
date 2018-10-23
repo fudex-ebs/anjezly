@@ -7,6 +7,8 @@ use App\Countries;
 use Auth;
 use App\User;
 use App\Category;
+use App\UserSkill;
+use App\Skill;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
@@ -40,6 +42,31 @@ class ClientController extends Controller
         $user->update();
         
         return $img_name;    
-
+    }
+    public function my_skills() {
+        $userSkills = UserSkill::
+                    join('skills','skills.id','=','user_skills.skill_id')                    
+                    ->where('user_skills.user_id','=',Auth::user()->id)
+                    ->get();
+                
+        $allSkills = Skill::where('active',1)->get();
+        return view('clients.my_skills', compact('allSkills','userSkills'));
+    }
+    public function skillsUpdate(Request $request) {
+        $skills_ids =  $request->input('skills_id');  
+        
+        foreach ($skills_ids as $skillID) {
+            $ifExists = UserSkill::where('user_id', Auth::user()->id)->where('skill_id',$skillID)->get();
+            if(count($ifExists) < 1){
+                $userSkill =new UserSkill();
+                $userSkill->user_id = Auth::user()->id;
+                $userSkill->skill_id = $skillID;
+                $userSkill->save();
+            }             
+        }
+       
+    }
+    public function my_skills_delete(User_Skill $item) {
+        $item->delete();
     }
 }

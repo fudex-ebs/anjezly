@@ -101,6 +101,7 @@
                     <h3>اعدادات</h3>
                     <ul>
                         <li><a href="{{ url('/personal_info') }}">المعلومات الشخصية</a></li>
+                        <li><a href="{{ url('/my_skills') }}">  مهـارتى</a></li>
                     </ul>
                  </div>
             </div>
