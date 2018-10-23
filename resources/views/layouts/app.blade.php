@@ -14,6 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dev.css') }}" rel="stylesheet">
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
@@ -78,5 +79,37 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/2c7a93b259.js"></script>
+
+    <script src="{{ asset('js/myScript.js') }}"></script>
+    
+    <script>
+     function upload(img){
+           $('#loading').css('display', 'block');
+        jQuery.ajax({
+          url:"{{url('uploadUserImg')}}",
+           headers: {
+             'X-CSRF-TOKEN': "{{csrf_token()}}"
+             },
+          data:new FormData($("#myFrm")[0]),
+          method:"POST",
+          processData: false,
+          contentType: false,
+          success:function(data){  
+            $('#loading').css('display', 'none');
+            $('#preview_image').attr('src', '{{asset('uploads')}}/' + data);
+            console.log(data);
+          },
+          error:function(error){
+              $('#loading').css('display', 'none');
+              $('#preview_image').attr('src', '{{asset('images/avatar.png')}}');
+              console.log(error);
+          }
+       });
+    };    
+     
+    </script>
 </body>
 </html>

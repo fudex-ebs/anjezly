@@ -17,3 +17,15 @@ body{
 .col-md-offset-4{
     margin-right: 33.33333333%;
 }
+
+#preview_image{
+    width: 100px;
+    height: 100px;
+}
+#loading{    
+    display: none;
+}
+.loadImgDiv{
+    float: right;
+    margin-bottom: 22px;    
+}
