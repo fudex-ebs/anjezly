@@ -14,7 +14,7 @@
                         </div>
                     @endif
                     @include('includes/flash-message')
-                    <form method="POST" action="{{ url('personal_info/update') }}" enctype="multipart/form-data" id="myFrm">
+                    <form method="POST" action="{{ url('portfolio/add') }}" enctype="multipart/form-data" id="myFrm">
                         {{ csrf_field() }}
                         
                         <div class="col-md-12">
@@ -47,6 +47,7 @@
                     <ul>
                         <li><a href="{{ url('/personal_info') }}">المعلومات الشخصية</a></li>
                         <li><a href="{{ url('/my_skills') }}">  مهـارتى</a></li>
+                        <li><a href="{{ url('/portfolio') }}">  أعمالى</a></li>
                     </ul>
                  </div>
             </div>

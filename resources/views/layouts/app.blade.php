@@ -140,10 +140,36 @@
 //               alert("selected: " + params.selected);
             }
         })
-        
-        
+                
     });
     
+    $(document).ready(function() {
+        $('.portfolio_publish:checkbox').bind('change', function(e) {
+            var _token = "{{ csrf_token() }}";                         
+            var item_id = $(this).val();
+            $.ajax({
+                    type: 'GET',
+                    url: "{{ url('portfolio/changeStatus') }}",
+                    data: {  _token:_token ,item_id:item_id },
+                    success: function(response) {
+                       
+                    }
+            });
+        })
+        
+        $(".deleteRow").click(function (){
+           var item_id = $(this).prev().prev().val();
+           var _token = "{{ csrf_token() }}";
+           $.ajax({
+                    type: 'GET',
+                    url: "{{ url('portfolio/delete') }}",
+                    data: {  _token:_token ,item_id:item_id },
+                    success: function(response) {                      
+                    }
+            });
+            $(this).closest('tr').remove();
+        });
+    });
  
     </script>
 </body>
