@@ -32,6 +32,7 @@
                     <ul>
                         <li><a href="{{ url('/personal_info') }}">المعلومات الشخصية</a></li>
                         <li><a href="{{ url('/my_skills') }}">  مهـارتى</a></li>
+                        <li><a href="{{ url('/portfolio') }}">  أعمالى</a></li>
                     </ul>
                     
                  </div>
