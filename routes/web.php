@@ -23,7 +23,7 @@ Route::post('/personal_info/update','ClientController@personal_info_update');
 Route::post('uploadUserImg','ClientController@personal_info_uploadImg');
 
 Route::get('/my_skills','ClientController@my_skills');
-Route::get('/my_skills/delete/{id}','ClientController@my_skills_delete');
+Route::get('my_skills/delete','ClientController@my_skills_delete');
 Route::post('updateSkills','ClientController@skillsUpdate');
 
 // OAuth Routes

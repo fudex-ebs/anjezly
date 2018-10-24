@@ -23,8 +23,8 @@
                                 @foreach($userSkills as $userSkill)
                                     <option value="{{ $userSkill->id }}" selected >{{ $userSkill->title }}</option>
                                 @endforeach
-                                @foreach($allSkills as $skill)
-                                <option value="{{ $skill->id }}">{{ $skill->title }}</option>
+                                @foreach($allSkills as $skill)                                   
+                                    <option value="{{ $skill->id }}">{{ $skill->title }}</option>                                       
                                 @endforeach
                         </select>
                             

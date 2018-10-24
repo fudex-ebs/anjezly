@@ -66,7 +66,9 @@ class ClientController extends Controller
         }
        
     }
-    public function my_skills_delete(User_Skill $item) {
+    public function my_skills_delete(Request $request) {
+        $skill_id = $request->input('item_id');
+        $item = UserSkill::where('user_id',Auth::user()->id)->where('skill_id',$skill_id)->first();
         $item->delete();
     }
 }

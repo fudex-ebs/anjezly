@@ -117,21 +117,31 @@
 //    --------------------------------------
     jQuery(document).ready(function(){
         jQuery(".chosen").chosen();
-        jQuery(".chosen").chosen().change(function (){
+        jQuery(".chosen").chosen().change(function (e,params){                          
             var skills_id =  $(this).val();
-            var _token = "{{ csrf_token() }}"; 
-            
+            var _token = "{{ csrf_token() }}";                         
             $.ajax({
                 type: 'POST',
                 url: "{{ url('updateSkills') }}",
                 data: {  _token:_token ,skills_id:skills_id },
-                success: function(response) {                        
-                    $(".mm").html(response);    
+                success: function(response) {                                           
                 }
-            }); 
-           
-           
+            });
+            
+            if(params.deselected){ 
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('my_skills/delete') }}",
+                    data: {  _token:_token ,item_id:params.deselected },
+                    success: function(response) {   
+                    }
+                });
+            }else{ 
+//               alert("selected: " + params.selected);
+            }
         })
+        
+        
     });
     
  
