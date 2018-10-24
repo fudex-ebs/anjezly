@@ -15,6 +15,7 @@
     <link href="{{ asset('css/dev.css') }}" rel="stylesheet">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css">
 </head>
 <body>
     <div id="app">
@@ -82,34 +83,68 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/2c7a93b259.js"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!--<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>-->
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
     <script src="{{ asset('js/myScript.js') }}"></script>
     
     <script>
      function upload(img){
            $('#loading').css('display', 'block');
-        jQuery.ajax({
-          url:"{{url('uploadUserImg')}}",
-           headers: {
-             'X-CSRF-TOKEN': "{{csrf_token()}}"
-             },
-          data:new FormData($("#myFrm")[0]),
-          method:"POST",
-          processData: false,
-          contentType: false,
-          success:function(data){  
-            $('#loading').css('display', 'none');
-            $('#preview_image').attr('src', '{{asset('uploads')}}/' + data);
-            console.log(data);
-          },
-          error:function(error){
-              $('#loading').css('display', 'none');
-              $('#preview_image').attr('src', '{{asset('images/avatar.png')}}');
-              console.log(error);
-          }
-       });
+            jQuery.ajax({
+              url:"{{url('uploadUserImg')}}",
+               headers: {
+                 'X-CSRF-TOKEN': "{{csrf_token()}}"
+                 },
+              data:new FormData($("#myFrm")[0]),
+              method:"POST",
+              processData: false,
+              contentType: false,
+              success:function(data){  
+                $('#loading').css('display', 'none');
+                $('#preview_image').attr('src', '{{asset('uploads')}}/' + data);
+                console.log(data);
+              },
+              error:function(error){
+                  $('#loading').css('display', 'none');
+                  $('#preview_image').attr('src', '{{asset('images/avatar.png')}}');
+                  console.log(error);
+              }
+           });
     };    
-     
+    
+//    --------------------------------------
+    jQuery(document).ready(function(){
+        jQuery(".chosen").chosen();
+        jQuery(".chosen").chosen().change(function (e,params){                          
+            var skills_id =  $(this).val();
+            var _token = "{{ csrf_token() }}";                         
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('updateSkills') }}",
+                data: {  _token:_token ,skills_id:skills_id },
+                success: function(response) {                                           
+                }
+            });
+            
+            if(params.deselected){ 
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('my_skills/delete') }}",
+                    data: {  _token:_token ,item_id:params.deselected },
+                    success: function(response) {   
+                    }
+                });
+            }else{ 
+//               alert("selected: " + params.selected);
+            }
+        })
+        
+        
+    });
+    
+ 
     </script>
 </body>
 </html>

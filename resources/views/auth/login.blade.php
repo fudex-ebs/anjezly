@@ -10,7 +10,7 @@
                 <h3 class="text-center">باستخدام احدى مواقع التواصل الاجتماعى</h3>
                 <ul>
                     <li> <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a></li>
-                    <li> <a href="{{ url('/auth/google') }}" class="btn btn-google"><i class="fa fa-facebook"></i> Google</a></li>
+                    <li> <a href="{{ url('/auth/google') }}" class="btn btn-google"><i class="fa fa-google"></i> Google</a></li>
                 </ul>
                 <hr/> 
                 

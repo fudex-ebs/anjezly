@@ -89,6 +89,17 @@
                                     @endif                                                                    
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+                            <label for="password-category" class="col-md-4 control-label"> التخصص</label>
+                             <div class="col-md-6">
+                                <select name="category" id="category" class="form-control">
+                                    @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">
+                                            {{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                             </div>
+                        </div>
                         <div class="form-group">                            
                             <div class="col-md-8 col-md-offset-4">
                                 <input id="agreements" type="checkbox"  name="agreements" value="1" required>
