@@ -10,7 +10,7 @@
                 <h3 class="text-center">باستخدام احدى مواقع التواصل الاجتماعى</h3>
                 <ul>
                     <li> <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a></li>
-                    <li> <a href="{{ url('/auth/google') }}" class="btn btn-google"><i class="fa fa-facebook"></i> Google</a></li>
+                    <li> <a href="{{ url('/auth/google') }}" class="btn btn-google"><i class="fa fa-google"></i> Google</a></li>
                 </ul>
                 <hr/> <h3>أو بالتسجيل عبر موقعنا </h3>
                 <div class="panel-body">
@@ -92,7 +92,7 @@
                         <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
                             <label for="password-category" class="col-md-4 control-label"> التخصص</label>
                              <div class="col-md-6">
-                                <select name="category" id="category" class="form-control">
+                                <select name="category" id="category" class="form-control" >
                                     @foreach($categories as $category)
                                     <option value="{{ $category->id }}">
                                             {{ $category->name }}</option>

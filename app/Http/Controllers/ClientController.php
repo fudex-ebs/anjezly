@@ -7,7 +7,7 @@ use App\Countries;
 use Auth;
 use App\User;
 use App\Category;
-use App\UserSkill;
+use App\SkillsUser;
 use App\Skill;
 use App\UserPortofolio;
 
@@ -15,8 +15,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+       
+    }
     public function personal_info() {
-        $countries = Countries::all();
+         $this->middleware('auth');
+        $countries = Countries::orderby('title_ar','asc')->get();
         $categories = Category::where('active',1)->get();
         return view('clients.personal_info', compact('countries','categories'));
     }
@@ -35,30 +40,46 @@ class ClientController extends Controller
            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]); 
         
+        $user = Auth::user();
+
+        if($user->img != NULL){
+            $file_path = public_path().'/uploads/'.$user->img;
+            if(file_exists($file_path))
+                unlink($file_path);
+        }
         $img_name = time().'.'.$request->file('img')->getClientOriginalExtension();
         $request->file('img')->move(base_path().'/public/uploads/',$img_name);   
-        
-        $user = Auth::user();
+                
         $user->img = $img_name;
         $user->update();
         
         return $img_name;    
     }
     public function my_skills() {
-        $userSkills = UserSkill::
-                    join('skills','skills.id','=','user_skills.skill_id')                    
-                    ->where('user_skills.user_id','=',Auth::user()->id)
+        $userSkills = SkillsUser::
+                    join('skills','skills.id','=','skills_users.skill_id')                    
+                    ->where('skills_users.user_id','=',Auth::user()->id)
                     ->get();
                 
         $allSkills = Skill::where('active',1)->get();
+         
+//        $otherSkills = array();
+//        foreach ($userSkills as $value) {
+//            foreach ($allSkills as $value2) {
+//                if($value->skill_id != $value2->id) 
+//                    array_push ($otherSkills, $value2);
+//            }
+//        }        
+//        $otherSkills = array_unique($otherSkills);
+        
         return view('clients.my_skills', compact('allSkills','userSkills'));
     }
     public function skillsUpdate(Request $request) {
         $skills_ids =  $request->input('skills_id');          
         foreach ($skills_ids as $skillID) {
-            $ifExists = UserSkill::where('user_id', Auth::user()->id)->where('skill_id',$skillID)->get();
+            $ifExists = SkillsUser::where('user_id', Auth::user()->id)->where('skill_id',$skillID)->get();
             if(count($ifExists) < 1){
-                $userSkill =new UserSkill();
+                $userSkill =new SkillsUser();
                 $userSkill->user_id = Auth::user()->id;
                 $userSkill->skill_id = $skillID;
                 $userSkill->save();
@@ -68,7 +89,7 @@ class ClientController extends Controller
     }
     public function my_skills_delete(Request $request) {
         $skill_id = $request->input('item_id');
-        $item = UserSkill::where('user_id',Auth::user()->id)->where('skill_id',$skill_id)->first();
+        $item = SkillsUser::where('user_id',Auth::user()->id)->where('skill_id',$skill_id)->first();
         $item->delete();
     }
     public function portfolio() {
@@ -117,21 +138,35 @@ class ClientController extends Controller
     public function portfolio_edit(UserPortofolio $item) {
         $allSkills = Skill::where('active',1)->get();
         $mySkills = explode(',', $item->skills_in);
-        
+         
         return view('clients.portfolio_update', compact('allSkills','item','mySkills'));
     }
     public function portfolio_update(Request $request, UserPortofolio $item) { 
-          $this->validate($request, [                    
+        $this->validate($request, [                    
            'title' => 'required|max:255',
            'link' => 'max:255',   
            'skills_in' =>'required'
         ]);
-        if(!$request->skills_in)
-            $item->update($request->all());
-       if($request->skills_in != null)
+         
+        if($request->hasFile('file')){
+            $file_path = public_path().'/uploads/'.$item->img;
+            if(file_exists($file_path))
+                unlink($file_path);
+            
+            $img_name = time().'.'.$request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move(base_path().'/public/uploads/',$img_name);   
+            $item->img = $img_name;
+        }
+        $item->title = $request->title;
+        $item->description = $request->description;
+        $item->user_id = Auth::user()->id;
+        $item->link = $request->link;
+        $item->end_date = $request->end_date;                
+        if($request->skills_in != null)
             $item->skills_in = implode(',', $request->skills_in);
         else $item->skills_in = '';
-         $item->save();
+        $item->save();
+        
         return back()->with('success','تم تحديث بيانات العمل بنجاح');
     }
 }
