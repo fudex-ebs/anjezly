@@ -16,9 +16,10 @@
                     @include('includes/flash-message')
                     <form method="POST" action="{{ url('portfolio/add') }}" enctype="multipart/form-data" id="myFrm">
                         {{ csrf_field() }}
-                        
+                       
                         <div class="col-md-12">
-                            <label for="first_name">المهــارات  </label>                           
+                            <label for="first_name">المهــارات  </label>     
+                             
                             <select class="chosen form-control" multiple="true"  name="skills">
                                 @foreach($userSkills as $userSkill)
                                     <option value="{{ $userSkill->id }}" selected >{{ $userSkill->title }}</option>

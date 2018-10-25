@@ -38,13 +38,19 @@
                             <input type="date" name="end_date" id="end_date" class="form-control" value="{{$item->end_date}}"/>
                         </div>
                         <div class="col-md-12">
-                            <label for="skills_in">المهــارات  </label>                           
-                            <select class="chosen form-control" multiple="true"  name="skills_in[]">                               
-                                @foreach($allSkills as $skill)                                   
-                                    @foreach($mySkills as $mySkill)
-                                     <option value="{{ $skill->id }}" @if($mySkill == $skill->id) selected @endif>{{ $skill->title }}</option>  
-                                    @endforeach
-                                    <option value="{{ $skill->id }}">{{ $skill->title }}</option>                                       
+                            <label for="skills_in">المهــارات  </label>    
+                             
+                            <select class="chosen form-control" multiple="true"  name="skills_in[]"> 
+                                @foreach($allSkills as $skill ) 
+                                    <option value="{{ $skill->id }}">{{ $skill->title }}</option>                                
+                                @endforeach
+                                
+                                @foreach($allSkills as $skill ) 
+                                @foreach($mySkills as $sk)
+                                    @if($sk == $skill->id)
+                                    <option value="{{ $skill->id }}" selected="">{{ $skill->title }}</option>   
+                                    @endif
+                                @endforeach
                                 @endforeach
                             </select>
                         </div>
