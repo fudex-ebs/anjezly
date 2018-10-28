@@ -68,6 +68,7 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                     <a href="{{ url('/project/add') }}">أضف مشروع</a>
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">الرئيسية</a>
                     @else

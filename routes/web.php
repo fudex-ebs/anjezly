@@ -32,10 +32,14 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('portfolio/changeStatus','ClientController@portfolio_changeStatus');
         Route::get('portfolio/delete','ClientController@portfolio_delete');
         Route::get('portfolio/edit/{item}','ClientController@portfolio_edit');
-        Route::post('portfolio/update/{item}','ClientController@portfolio_update');       
+        Route::post('portfolio/update/{item}','ClientController@portfolio_update');  
+        
+        //-------- Projects -----------
+        Route::get('/project/add','ProjectsController@project_add');
+        Route::post('projects/insert','ProjectsController@project_insert');
 });
 
- // OAuth Routes
-        Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
-        Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+ // OAuth Routes (Social login)
+Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 

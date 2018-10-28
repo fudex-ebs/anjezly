@@ -19,8 +19,7 @@ class ClientController extends Controller
     {
        
     }
-    public function personal_info() {
-         $this->middleware('auth');
+    public function personal_info() {        
         $countries = Countries::orderby('title_ar','asc')->get();
         $categories = Category::where('active',1)->get();
         return view('clients.personal_info', compact('countries','categories'));
