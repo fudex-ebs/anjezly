@@ -53,6 +53,7 @@ class ProjectsController extends Controller
         $items = Project::join('status','status.id','=','projects.status')                    
                     ->join('budgets','budgets.id','=','projects.budget_id')      
                     ->where('projects.user_id','=',Auth::user()->id)
+                    ->orderby('projects.id','desc')
                     ->get(['projects.name as projName','projects.id as projID','budgets.name as budgName',
                         'projects.*','status.*']);
         return view('clients.my_projects', compact('items'));
