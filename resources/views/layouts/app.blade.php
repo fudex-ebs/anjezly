@@ -46,9 +46,11 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+                        <li><a href="{{ url('/project/add') }}">أضف مشروع</a></li>
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">دخول</a></li>
                             <li><a href="{{ route('register') }}">تسجيل</a></li>
+                            
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -160,11 +162,13 @@
         $(".deleteRow").click(function (){
            var item_id = $(this).prev().prev().val();
            var _token = "{{ csrf_token() }}";
+           var tbl = $(this).next().val();
+           
            $.ajax({
                     type: 'GET',
-                    url: "{{ url('portfolio/delete') }}",
-                    data: {  _token:_token ,item_id:item_id },
-                    success: function(response) {                      
+                    url: "{{ url('/dashboard/deleteItem') }}",
+                    data: {  _token:_token ,item_id:item_id,tbl:tbl },
+                    success: function(response) {                       
                     }
             });
             $(this).closest('tr').remove();

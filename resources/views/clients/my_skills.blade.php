@@ -18,8 +18,7 @@
                         {{ csrf_field() }}
                        
                         <div class="col-md-12">
-                            <label for="first_name">المهــارات  </label>     
-                             
+                            <label for="skills">المهــارات  </label>                                  
                             <select class="chosen form-control" multiple="true"  name="skills">
                                 @foreach($userSkills as $userSkill)
                                     <option value="{{ $userSkill->id }}" selected >{{ $userSkill->title }}</option>
@@ -27,8 +26,7 @@
                                 @foreach($allSkills as $skill)                                   
                                     <option value="{{ $skill->id }}">{{ $skill->title }}</option>                                       
                                 @endforeach
-                        </select>
-                            
+                        </select>                            
                         </div>
                         
                     </form>
@@ -46,9 +44,10 @@
                     
                     <h3>اعدادات</h3>
                     <ul>
-                        <li><a href="{{ url('/personal_info') }}">المعلومات الشخصية</a></li>
-                        <li><a href="{{ url('/my_skills') }}">  مهـارتى</a></li>
-                        <li><a href="{{ url('/portfolio') }}">  أعمالى</a></li>
+                        <li><a href="{{ url('/dashboard/personal_info') }}">المعلومات الشخصية</a></li>
+                        <li><a href="{{ url('/dashboard/my_skills') }}">  مهـارتى</a></li>
+                        <li><a href="{{ url('/dashboard/portfolio') }}">  أعمالى</a></li>
+                        <li><a href="{{ url('/dashboard/my_projects') }}">  مشاريعى</a></li>
                     </ul>
                  </div>
             </div>
