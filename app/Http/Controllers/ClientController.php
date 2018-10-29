@@ -10,6 +10,7 @@ use App\Category;
 use App\SkillsUser;
 use App\Skill;
 use App\UserPortofolio;
+use DB;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
@@ -148,10 +149,11 @@ class ClientController extends Controller
         ]);
          
         if($request->hasFile('file')){
-            $file_path = public_path().'/uploads/'.$item->img;
-            if(file_exists($file_path))
-                unlink($file_path);
-            
+            if($item->img != null){
+                $file_path = public_path().'/uploads/'.$item->img;
+                if(file_exists($file_path))
+                    unlink($file_path);
+            }
             $img_name = time().'.'.$request->file('file')->getClientOriginalExtension();
             $request->file('file')->move(base_path().'/public/uploads/',$img_name);   
             $item->img = $img_name;
@@ -167,5 +169,11 @@ class ClientController extends Controller
         $item->save();
         
         return back()->with('success','تم تحديث بيانات العمل بنجاح');
+    }
+    public function delete_item(Request $request) {
+       $item_id = $request->input('item_id');
+       $tbl = $request->input('tbl');
+       $item = DB::table($tbl)->where('id',$item_id);
+       $item->delete();                
     }
 }

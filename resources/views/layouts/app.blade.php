@@ -162,11 +162,13 @@
         $(".deleteRow").click(function (){
            var item_id = $(this).prev().prev().val();
            var _token = "{{ csrf_token() }}";
+           var tbl = $(this).next().val();
+           
            $.ajax({
                     type: 'GET',
-                    url: "{{ url('portfolio/delete') }}",
-                    data: {  _token:_token ,item_id:item_id },
-                    success: function(response) {                      
+                    url: "{{ url('/dashboard/deleteItem') }}",
+                    data: {  _token:_token ,item_id:item_id,tbl:tbl },
+                    success: function(response) {                       
                     }
             });
             $(this).closest('tr').remove();

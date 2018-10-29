@@ -44,9 +44,10 @@
                     
                     <h3>اعدادات</h3>
                     <ul>
-                        <li><a href="{{ url('/personal_info') }}">المعلومات الشخصية</a></li>
-                        <li><a href="{{ url('/my_skills') }}">  مهـارتى</a></li>
-                        <li><a href="{{ url('/portfolio') }}">  أعمالى</a></li>
+                        <li><a href="{{ url('/dashboard/personal_info') }}">المعلومات الشخصية</a></li>
+                        <li><a href="{{ url('/dashboard/my_skills') }}">  مهـارتى</a></li>
+                        <li><a href="{{ url('/dashboard/portfolio') }}">  أعمالى</a></li>
+                        <li><a href="{{ url('/dashboard/my_projects') }}">  مشاريعى</a></li>
                     </ul>
                  </div>
             </div>
