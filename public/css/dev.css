@@ -29,3 +29,20 @@ body{
     float: right;
     margin-bottom: 22px;    
 }
+.skillsBid{
+    list-style: none;
+    margin-right: -20px;
+}
+.skillsBid li{
+    display: inline;
+    background: #F5F5F5;
+    border: 1px solid #DDD;   
+    padding: 3px 12px;
+    margin-left: 10px;
+}
+.skillsBid li a{
+    color: #666;    
+}
+.skillsBid li a:hover{
+    text-decoration: none;
+}

@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('project/{item}', 'FrontController@project')->name('project');
 Route::group(['middleware' => ['auth']], function() {
         Route::get('/dashboard/personal_info','ClientController@personal_info');
         Route::post('/personal_info/update','ClientController@personal_info_update');
